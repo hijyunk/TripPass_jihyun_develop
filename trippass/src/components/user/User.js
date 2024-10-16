@@ -4,12 +4,14 @@ import { useSelector } from 'react-redux';
 import { FaPencilAlt } from "react-icons/fa";
 import ProfilePopup from './ProfilePopup';
 import PasswordPopup from './PasswordPopup';
+import UserDeletePopup from './UserDeletePopup';
 import '../../styles/userpage.css';
 
 const User = () => {
   const { isAuthenticated, user } = useSelector(state => state.user);
   const [showPopup, setShowPopup] = useState(false);
   const [showPasswordPopup, setShowPasswordPopup] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   const handlePopupOpen = () => {
     setShowPopup(true);
@@ -25,6 +27,14 @@ const User = () => {
 
   const handlePasswordPopupClose = () => { 
     setShowPasswordPopup(false);
+  };
+
+  const handleDeletePopupOpen = () => {
+    setShowDeletePopup(true);
+  };
+
+  const handleDeletePopupClose = () => {
+    setShowDeletePopup(false);
   };
 
 
@@ -59,9 +69,13 @@ const User = () => {
             </div>
           </div>
         )}
+        <div className="userDelete">
+          {isAuthenticated && <button className="userDeleteButton" onClick={handleDeletePopupOpen}>회원 탈퇴</button>}
+        </div>
       </div>
       {showPopup && <ProfilePopup onClose={handlePopupClose} />}
       {showPasswordPopup && <PasswordPopup onClose={handlePasswordPopupClose} />}
+      {showDeletePopup && <UserDeletePopup onClose={handleDeletePopupClose} />}
     </div>
   );
 };

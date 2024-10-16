@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import { API_URL } from "../../config";
-
+import Swal from "sweetalert2";
 const PopupContainer = styled.div`
   position: fixed;
   top: 0;
@@ -141,10 +141,41 @@ const NewTripCrewPop = ({ onClose }) => {
         }
       });
       onClose();
-      alert('크루가 추가되었습니다.');
+      //alert('크루가 추가되었습니다.');
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "크루가 추가되었습니다!"
+      });
       window.location.reload();
+      onClose();
     } catch (error) {
-      console.error('크루 추가 실패:', error.message);
+      //console.error('크루 추가 실패:', error.message);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "크루 생성 중 오류가 발생했습니다."
+      });
     }
   };
 

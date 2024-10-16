@@ -79,43 +79,48 @@ const UserPersonality = () => {
   return (
     <div className="section-travel-preferences">
       <h3 className="section-title">나의 여행 성향</h3>
-      {user && user.personality === "none" && !editing && (
-        <div className="no-preferences">
-          아직 선택하신 내역이 없어요 😣
-        </div>
-      )}
-      {editing ? (
-        <div className="preferences-grid">
-          {Object.keys(groupedPreferences).map((group) => (
-            <div key={group} className="preference-group">
-              <img src={groupedPreferences[group][0].img} alt={group} className="preference-image" />
-              {groupedPreferences[group].map((preference) => (
-                <div
-                  key={preference.id}
-                  className={`preference-label ${preferences[group] === preference.id ? 'selected' : ''}`}
-                  onClick={() => handlePreferenceClick(group, preference.id)}
-                >
-                  {preference.label.split('\n').map((line, index) => (
-                    <p key={index}>{line}</p>
-                  ))}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="preferences-icons">
-          {Object.values(preferences).filter(value => value !== null).map((preferenceId) => {
-            const preference = Object.values(groupedPreferences).flat().find((p) => p.id === preferenceId);
-            return (
-              <div key={preference.id} className="preference-icon">
-                <img src={preference.img} alt={preference.label} />
-                <p style={{ margin: "2vh 0" }}>{preference.label}</p>
+      {user ? (
+        user.personality === "none" && !editing ? (
+          <div className="no-preferences">
+            아직 선택하신 내역이 없어요 😣
+          </div>
+        ) : (
+          <>
+            {editing ? (
+              <div className="preferences-grid">
+                {Object.keys(groupedPreferences).map((group) => (
+                  <div key={group} className="preference-group">
+                    <img src={groupedPreferences[group][0].img} alt={group} className="preference-image" />
+                    {groupedPreferences[group].map((preference) => (
+                      <div
+                        key={preference.id}
+                        className={`preference-label ${preferences[group] === preference.id ? 'selected' : ''}`}
+                        onClick={() => handlePreferenceClick(group, preference.id)}
+                      >
+                        {preference.label.split('\n').map((line, index) => (
+                          <p key={index}>{line}</p>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
-            );
-          })}
-        </div>
-      )}
+            ) : (
+              <div className="preferences-icons">
+                {Object.values(preferences).filter(value => value !== null).map((preferenceId) => {
+                  const preference = Object.values(groupedPreferences).flat().find((p) => p.id === preferenceId);
+                  return (
+                    <div key={preference.id} className="preference-icon">
+                      <img src={preference.img} alt={preference.label} />
+                      <p style={{ margin: "2vh 0" }}>{preference.label}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </>
+        )
+      ) : null}
       <button 
         className="edit-button" 
         onClick={editing ? handleSaveClick : handleEditClick}

@@ -8,7 +8,6 @@ import TripPlace from "../components/chatbot/TripPlace";
 const ChatPageContainer = styled.div`
   display: flex;
   height: 85vh;
-  overflow: hidden;
   padding-bottom: 20px;
 `;
 
@@ -26,6 +25,7 @@ const DailyPlanSection = styled.div`
   display: flex;
   flex-direction: column;
   height: 85vh;
+
 `;
 
 const TripPlaceContainer = styled.div`
@@ -48,6 +48,7 @@ const DailyPlanContainer = styled.div`
   flex: 7;
   margin-bottom: 20px;
   box-sizing: border-box;
+  overflow-y: auto; 
 `;
 
 const ChatPage = () => {

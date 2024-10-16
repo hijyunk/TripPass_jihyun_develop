@@ -4,6 +4,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { API_URL } from "../../config";
+import ReactMarkdown from 'react-markdown';
 
 const Memo = () => {
   const { user } = useSelector(state => state.user);
@@ -15,7 +16,7 @@ const Memo = () => {
     const fetchMemo = async () => {
       try {
         const response = await axios.get(`${API_URL}/getMyTrips?tripId=${user.mainTrip}`);
-        const tripData = response.data.response[0]; 
+        const tripData = response.data.response[0];
         setMemo(tripData.memo || '아직 메모가 없어요');
       } catch (error) {
         console.error('메모 가져오기 실패:', error.message);
@@ -67,7 +68,7 @@ const Memo = () => {
         </div>
       ) : (
         <div className="memoContent">
-          <p>{memo}</p>
+          <ReactMarkdown>{memo}</ReactMarkdown>
         </div>
       )}
     </div>

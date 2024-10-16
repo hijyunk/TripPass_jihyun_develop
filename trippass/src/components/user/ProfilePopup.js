@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { updateProfileImage } from '../../store/userSlice';
 import axios from 'axios';
 import { API_URL } from "../../config";
+import Swal from "sweetalert2";
 
 
 const PopupContainer = styled.div`
@@ -54,12 +55,41 @@ const ProfilePopup = ({ onClose }) => {
         }
       });
       if (response.data["result code"] === 200) {
-        alert('사진이 변경되었습니다!');
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "프로필 사진이 업데이트 되었습니다!"
+        });
         const profileImage = response.data.response;
         dispatch(updateProfileImage(profileImage));
         onClose();
       } else {
-        alert('프로필 사진 업데이트에 실패하였습니다');
+        //alert('프로필 사진 업데이트에 실패하였습니다');
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "error",
+          title: "프로필 사진 업데이트에 실패하였습니다."
+        });
       }
       onClose();
     } catch (error) {

@@ -1,15 +1,29 @@
 import React from 'react';
 import { TiDelete } from "react-icons/ti";
 import '../../styles/mytrip.css';
+import Swal from "sweetalert2";
 
 const TripCard = ({ title, startDate, endDate, banner, isHighlighted, onClick, onDelete }) => {
   const imageUrl = `data:image/jpeg;base64,${banner}`;
   const imageClass = isHighlighted ? 'TripCard_Image' : 'TripCard_Image TripCard_Image_Dark';
 
   const handleDeleteClick = () => {
-    if (window.confirm("해당 여행을 삭제하시겠습니까?")) {
-      onDelete();
-    }
+    // if (window.confirm("해당 여행을 삭제하시겠습니까?")) {
+    //   onDelete();
+    // }
+    Swal.fire({
+      title: "해당 여행을 삭제하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onDelete();
+      }
+    });
   };
 
   return (

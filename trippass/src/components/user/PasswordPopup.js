@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import axios from 'axios';
 import { API_URL } from "../../config";
+import Swal from "sweetalert2";
 
 const PopupContainer = styled.div`
   position: fixed;
@@ -88,10 +89,40 @@ const PasswordPopup = ({ onClose }) => {
       });
 
       if (response.data["result code"] === 200) {
-        alert('비밀번호가 변경되었습니다!');
+        //alert('비밀번호가 변경되었습니다!');
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "비밀번호가 변경되었습니다!"
+        });
         onClose();
       } else {
         setError(response.data.response);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "error",
+          title: "비밀번호가 변경 중 오류가 발생했습니다."
+        });
       }
     } catch (err) {
       setError('비밀번호 변경 중 오류가 발생했습니다.');

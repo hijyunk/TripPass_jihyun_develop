@@ -3,106 +3,224 @@
       {
         "country": "미국",
         "city": [
-          {"city_name": "보스턴"},
-          {"city_name": "버밍엄"},
-          {"city_name": "샌프란시스코"},
-          {"city_name": "시카고"},
-          {"city_name": "애틀란타"},
-          {"city_name": "오스틴"},
-          {"city_name": "워싱턴, D.C."},
-          {"city_name": "콜럼버스"},
-          {"city_name": "클리블랜드"},
-          {"city_name": "뉴욕"},
-          {"city_name": "로스앤젤레스"},
-          {"city_name": "라스베가스"},
-          {"city_name": "디트로이트"},
-          {"city_name": "달라스"},
-          {"city_name": "버팔로"},
-          {"city_name": "마이애미"},
-          {"city_name": "뉴올리언스"},
-          {"city_name": "샌안토니오"},
-          {"city_name": "시애틀"},
-          {"city_name": "휴스턴"},
-          {"city_name": "필라델피아"},
-          {"city_name": "포틀랜드"}
+          {"city_name": "보스턴", "latitude": 42.358430, "longitude": -71.059770},
+          {"city_name": "버밍엄", "latitude": 33.518589, "longitude": -86.810356},
+          {"city_name": "샌프란시스코", "latitude": 37.774929, "longitude": -122.419418},
+          {"city_name": "시카고", "latitude": 41.878113, "longitude": -87.629799},
+          {"city_name": "애틀란타", "latitude": 33.748997, "longitude": -84.387985},
+          {"city_name": "오스틴", "latitude": 30.267153, "longitude": -97.743057},
+          {"city_name": "워싱턴, D.C.", "latitude": 38.907192, "longitude": -77.036873},
+          {"city_name": "뉴욕", "latitude": 40.712776, "longitude": -74.005974},
+          {"city_name": "로스앤젤레스", "latitude": 34.052235, "longitude": -118.243683},
+          {"city_name": "라스베가스", "latitude": 36.169941, "longitude": -115.139832},
+          {"city_name": "디트로이트", "latitude": 42.331427, "longitude": -83.045754},
+          {"city_name": "달라스", "latitude": 32.776665, "longitude": -96.796989},
+          {"city_name": "버팔로", "latitude": 42.886447, "longitude": -78.878369},
+          {"city_name": "마이애미", "latitude": 25.761681, "longitude": -80.191788},
+          {"city_name": "뉴올리언스", "latitude": 29.951065, "longitude": -90.071533},
+          {"city_name": "샌안토니오", "latitude": 29.424122, "longitude": -98.493629},
+          {"city_name": "시애틀", "latitude": 47.606209, "longitude": -122.332069},
+          {"city_name": "휴스턴", "latitude": 29.760427, "longitude": -95.369804},
+          {"city_name": "필라델피아", "latitude": 39.952583, "longitude": -75.165222},
+          {"city_name": "포틀랜드", "latitude": 45.505106, "longitude": -122.675026}
         ]
       },
       {
         "country": "영국",
         "city": [
-          {"city_name": "런던"},
-          {"city_name": "맨체스터"},
-          {"city_name": "버밍엄"},
-          {"city_name": "글래스고"},
-          {"city_name": "리버풀"},
-          {"city_name": "에든버러"},
-          {"city_name": "브리스톨"},
-          {"city_name": "리즈"},
-          {"city_name": "뉴캐슬"},
-          {"city_name": "캠브리지"},
-          {"city_name": "옥스퍼드"}
+          {"city_name": "런던", "latitude": 51.509865, "longitude": -0.118092},
+          {"city_name": "맨체스터", "latitude": 53.483959, "longitude": -2.244644},
+          {"city_name": "버밍엄", "latitude": 52.486244, "longitude": -1.890401},
+          {"city_name": "글래스고", "latitude": 55.864237, "longitude": -4.251806},
+          {"city_name": "리버풀", "latitude": 53.408371, "longitude": -2.991573},
+          {"city_name": "에든버러", "latitude": 55.953251, "longitude": -3.188267},
+          {"city_name": "브리스톨", "latitude": 51.454514, "longitude": -2.587910},
+          {"city_name": "리즈", "latitude": 53.800755, "longitude": -1.549077},
+          {"city_name": "뉴캐슬", "latitude": 54.978252, "longitude": -1.617439},
+          {"city_name": "캠브리지", "latitude": 52.205337, "longitude": 0.121817},
+          {"city_name": "옥스퍼드", "latitude": 51.752022, "longitude": -1.257677}
+        ]
+      },
+      {
+        "country": "일본",
+        "city": [
+          {"city_name": "가와사키", "latitude": 35.520560, "longitude": 139.717220},
+          {"city_name": "고베", "latitude": 34.690083, "longitude": 135.195511},
+          {"city_name": "교토", "latitude": 35.011636, "longitude": 135.768029},
+          {"city_name": "나고야", "latitude": 35.181446, "longitude": 136.906398},
+          {"city_name": "도쿄", "latitude": 35.682839, "longitude": 139.759455},
+          {"city_name": "사이타마", "latitude": 35.861729, "longitude": 139.645482},
+          {"city_name": "삿포로", "latitude": 43.061936, "longitude": 141.354292},
+          {"city_name": "오사카", "latitude": 34.693738, "longitude": 135.502165},
+          {"city_name": "요코하마", "latitude": 35.443707, "longitude": 139.638031},
+          {"city_name": "후쿠오카", "latitude": 33.590355, "longitude": 130.401716}
+        ]
+      },
+      {
+        "country": "베트남",
+        "city": [
+          {"city_name": "호찌민", "latitude": 10.823099, "longitude": 106.629664},
+          {"city_name": "하노이", "latitude": 21.028511, "longitude": 105.804817},
+          {"city_name": "다낭", "latitude": 16.047079, "longitude": 108.206230},
+          {"city_name": "호이안", "latitude": 15.880058, "longitude": 108.338046},
+          {"city_name": "나트랑", "latitude": 12.238791, "longitude": 109.196749},
+          {"city_name": "하이퐁", "latitude": 20.865139, "longitude": 106.683830},
+          {"city_name": "달랏", "latitude": 11.940419, "longitude": 108.458313},
+          {"city_name": "무이네", "latitude": 10.932461, "longitude": 108.277199},
+          {"city_name": "사파", "latitude": 22.340179, "longitude": 103.844157},
+          {"city_name": "하롱베이", "latitude": 20.910051, "longitude": 107.183902}
+        ]
+      },
+      {
+        "country": "인도",
+        "city": [
+          {"city_name": "델리", "latitude": 28.704060, "longitude": 77.102490},
+          {"city_name": "캘커타", "latitude": 22.572645, "longitude": 88.363892},
+          {"city_name": "벵갈루루", "latitude": 12.971599, "longitude": 77.594566},
+          {"city_name": "아그라", "latitude": 27.176670, "longitude": 78.008072},
+          {"city_name": "첸나이", "latitude": 13.082680, "longitude": 80.270721},
+          {"city_name": "뭄바이", "latitude": 19.076090, "longitude": 72.877426},
+          {"city_name": "바라나시", "latitude": 25.317645, "longitude": 82.973914},
+          {"city_name": "자이푸르", "latitude": 26.912434, "longitude": 75.787270},
+          {"city_name": "푸네", "latitude": 18.520430, "longitude": 73.856743}
+        ]
+      },
+      {
+        "country": "태국",
+        "city": [
+          {"city_name": "방콕", "latitude": 13.736717, "longitude": 100.523186},
+          {"city_name": "파타야", "latitude": 12.923556, "longitude": 100.882455},
+          {"city_name": "치앙마이", "latitude": 18.788344, "longitude": 98.985300},
+          {"city_name": "아유타야", "latitude": 14.353212, "longitude": 100.568959},
+          {"city_name": "치앙라이", "latitude": 19.910555, "longitude": 99.840576},
+          {"city_name": "코사무이", "latitude": 9.512016, "longitude": 100.013157},
+          {"city_name": "후아힌", "latitude": 12.568374, "longitude": 99.957688},
+          {"city_name": "끄라비", "latitude": 8.086300, "longitude": 98.906283},
+          {"city_name": "푸켓", "latitude": 7.880447, "longitude": 98.392293}
+        ]
+      },
+      {
+        "country": "필리핀",
+        "city": [
+          {"city_name": "마닐라", "latitude": 14.599512, "longitude": 120.984222},
+          {"city_name": "세부", "latitude": 10.315699, "longitude": 123.885437},
+          {"city_name": "다바오", "latitude": 7.190708, "longitude": 125.455338},
+          {"city_name": "일로일로", "latitude": 10.720150, "longitude": 122.562106},
+          {"city_name": "팔라완", "latitude": 9.834949, "longitude": 118.738281},
+          {"city_name": "보홀", "latitude": 9.880936, "longitude": 124.183998},
+          {"city_name": "보라카이", "latitude": 11.967375, "longitude": 121.924439}
+        ]
+      },
+      {
+        "country": "말레이시아",
+        "city": [
+          {"city_name": "쿠알라룸푸르"},
+          {"city_name": "페낭"},
+          {"city_name": "조호르바루"},
+          {"city_name": "랑카위"},
+          {"city_name": "코타키나발루"},
+          {"city_name": "보홀"},
+          {"city_name": "이포"}
         ]
       },
       {
         "country": "호주",
         "city": [
-          {"city_name": "멜버른"},
-          {"city_name": "시드니"},
-          {"city_name": "브리즈번"},
-          {"city_name": "퍼스"},
-          {"city_name": "캔버라"},
-          {"city_name": "골드코스트"},
-          {"city_name": "애들레이드"}
+          {"city_name": "멜버른", "latitude": -37.814, "longitude": 144.96332},
+          {"city_name": "시드니", "latitude": -33.8688, "longitude": 151.2093},
+          {"city_name": "브리즈번", "latitude": -27.4698, "longitude": 153.0251},
+          {"city_name": "퍼스", "latitude": -31.9505, "longitude": 115.8605},
+          {"city_name": "캔버라", "latitude": -35.2809, "longitude": 149.1300},
+          {"city_name": "골드코스트", "latitude": -28.0167, "longitude": 153.4000},
+          {"city_name": "애들레이드", "latitude": -34.9285, "longitude": 138.6007}
         ]
       },
       {
         "country": "캐나다",
         "city": [
-          {"city_name": "토론토"},
-          {"city_name": "밴쿠버"},
-          {"city_name": "몬트리올"},
-          {"city_name": "캘거리"}
+          {"city_name": "토론토", "latitude": 43.651070, "longitude": -79.347015},
+          {"city_name": "밴쿠버", "latitude": 49.282729, "longitude": -123.120738},
+          {"city_name": "몬트리올", "latitude": 45.501690, "longitude": -73.567253},
+          {"city_name": "캘거리", "latitude": 51.044733, "longitude": -114.071883},
+          {"city_name": "퀘벡", "latitude": 46.813878, "longitude": -71.207981}
         ]
       },
       {
         "country": "프랑스",
         "city": [
-          {"city_name": "파리"},
-          {"city_name": "리옹"},
-          {"city_name": "마르세유"}
+          {"city_name": "파리", "latitude": 48.856614, "longitude": 2.3522219},
+          {"city_name": "리옹", "latitude": 45.764043, "longitude": 4.835659},
+          {"city_name": "마르세유", "latitude": 43.296482, "longitude": 5.36978}
         ]
       },
       {
         "country": "이탈리아",
         "city": [
-          {"city_name": "로마"},
-          {"city_name": "밀라노"},
-          {"city_name": "나폴리"},
-          {"city_name": "피렌체"},
-          {"city_name": "베네치아"}
+          {"city_name": "로마", "latitude": 41.902783, "longitude": 12.496366},
+          {"city_name": "밀라노", "latitude": 45.464203, "longitude": 9.189982},
+          {"city_name": "나폴리", "latitude": 40.851798, "longitude": 14.268120},
+          {"city_name": "피렌체", "latitude": 43.769562, "longitude": 11.255814},
+          {"city_name": "베네치아", "latitude": 45.440847, "longitude": 12.315515}
+        ]
+      },
+      {
+        "country": "그리스",
+        "city": [
+          {"city_name": "아테네"},
+          {"city_name": "산토리니"},
+          {"city_name": "미코노스"},
+          {"city_name": "크레타"},
+          {"city_name": "로도스"},
+          {"city_name": "테살로니키"}
         ]
       },
       {
         "country": "독일",
         "city": [
-          {"city_name": "베를린"},
-          {"city_name": "뮌헨"},
-          {"city_name": "프랑크푸르트"},
-          {"city_name": "쾰른"}
+          {"city_name": "베를린", "latitude": 52.520008, "longitude": 13.404954},
+          {"city_name": "뮌헨", "latitude": 48.135125, "longitude": 11.581981},
+          {"city_name": "프랑크푸르트", "latitude": 50.110924, "longitude": 8.682127},
+          {"city_name": "쾰른", "latitude": 50.937531, "longitude": 6.960279}
+        ]
+      },
+      {
+        "country": "스위스",
+        "city": [
+          {"city_name": "취리히"},
+          {"city_name": "제네바"},
+          {"city_name": "루체른"},
+          {"city_name": "인터라켄"},
+          {"city_name": "베른"}
         ]
       },
       {
         "country": "스페인",
         "city": [
-          {"city_name": "바르셀로나"}
+          {"city_name": "바르셀로나", "latitude": 41.388790, "longitude": 2.158990},
+          {"city_name": "마드리드", "latitude": 40.416775, "longitude": -3.703790},
+          {"city_name": "세비야", "latitude": 37.388630, "longitude": -5.982330},
+          {"city_name": "그라나다", "latitude": 37.177336, "longitude": -3.598557},
+          {"city_name": "발렌시아", "latitude": 39.469907, "longitude": -0.376288},
+          {"city_name": "론다", "latitude": 36.742312, "longitude": -5.167330},
+          {"city_name": "말라가", "latitude": 36.721274, "longitude": -4.421398}
+        ]
+      },
+      {
+        "country": "포르투갈",
+        "city": [
+          {"city_name": "포르투", "latitude": 41.1496, "longitude": -8.6110},
+          {"city_name": "리스본", "latitude": 38.7167, "longitude": -9.1399},
+          {"city_name": "에보라", "latitude": 38.5713, "longitude": -7.9134},
+          {"city_name": "몬사라즈", "latitude": 38.4446, "longitude": -7.3816},
+          {"city_name": "알가르베", "latitude": 37.0179, "longitude": -7.9307},
+          {"city_name": "신트라", "latitude": 38.8019, "longitude": -9.3789}
         ]
       },
       {
         "country": "아랍에미리트",
         "city": [
-          {"city_name": "두바이"},
-          {"city_name": "아부다비"},
-          {"city_name": "샤르자"}
+          {"city_name": "두바이", "latitude": 25.276987, "longitude": 55.296249},
+          {"city_name": "아부다비", "latitude": 24.453884, "longitude": 54.377343}
         ]
       }
     ]

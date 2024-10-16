@@ -107,33 +107,40 @@ const DashboardBanner = () => {
   };
 
   const calculateDDay = (startDate) => {
-    const today = new Date();
-    const start = new Date(startDate);
-    const diffTime = Math.abs(start - today);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
+  const today = new Date();
+  const start = new Date(startDate);
+  const diffTime = start - today; // startDate와 today의 차이를 계산
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  return (
-    <BannerWrapper bannerImage={bannerUrl}>
-      {isAuthenticated && (
-        <BannerText>
-          <BannerTextLeft>
-            <BannerBotImage src={bot} alt="여행봇" />
-            {tripData ? (
-              <TripInfo>
-                <TripTitle>{tripData.title}</TripTitle>
-                <TripDates>{formatDate(tripData.startDate)} - {formatDate(tripData.endDate)}</TripDates>
-              </TripInfo>
-            ) : (
-              <TripTitle>안녕하세요 {user.nickname}님! 함께 여행 계획을 만들어 떠나볼까요?</TripTitle>
-            )}
-          </BannerTextLeft>
-          {tripData && <DDay>D - {calculateDDay(tripData.startDate)}</DDay>}
-        </BannerText>
-      )}
-    </BannerWrapper>
-  );
+  if (diffDays > 0) {
+    return `D - ${diffDays}`;
+  } else if (diffDays < 0) {
+    return `D + ${Math.abs(diffDays)}`;
+  } else {
+    return 'D-DAY';
+  }
 };
 
+return (
+  <BannerWrapper bannerImage={bannerUrl}>
+    {isAuthenticated && (
+      <BannerText>
+        <BannerTextLeft>
+          <BannerBotImage src={bot} alt="여행봇" />
+          {tripData ? (
+            <TripInfo>
+              <TripTitle>{tripData.title}</TripTitle>
+              <TripDates>{formatDate(tripData.startDate)} - {formatDate(tripData.endDate)}</TripDates>
+            </TripInfo>
+          ) : (
+            <TripTitle>안녕하세요 {user.nickname}님! 함께 여행 계획을 만들어 떠나볼까요?</TripTitle>
+          )}
+        </BannerTextLeft>
+        {tripData && <DDay>{calculateDDay(tripData.startDate)}</DDay>}
+      </BannerText>
+    )}
+  </BannerWrapper>
+);
+
+};
 export default DashboardBanner;

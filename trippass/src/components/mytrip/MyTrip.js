@@ -8,6 +8,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { updateUserMainTrip } from '../../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 import NewTrip from './NewTrip';
+import Swal from "sweetalert2";
 
 const MyTrip = () => {
   const { user } = useSelector(state => state.user);
@@ -39,7 +40,22 @@ const MyTrip = () => {
   const handleCardClick = async (tripId) => {
     setHighlightedTripId(tripId);
     dispatch(updateUserMainTrip(tripId));
-    alert("메인으로 설정되었습니다.")
+    //alert("메인으로 설정되었습니다.")
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    Toast.fire({
+      icon: "success",
+      title: "메인으로 설정되었습니다!"
+    });
     navigate('/tripPlan');
     try {
       const response = await axios.post(`${API_URL}/updateUserMainTrip`, {
@@ -73,6 +89,21 @@ const MyTrip = () => {
       });
 
       if (response.data['result code'] === 200) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "여행이 삭제되었습니다."
+        });
         setTripPlans(prevPlans => prevPlans.filter(trip => trip.tripId !== tripId));
         if (tripId === highlightedTripId) {
           setHighlightedTripId(null);
@@ -85,15 +116,76 @@ const MyTrip = () => {
       if (error.response) {
         if (error.response.status === 400) {
           if (error.response.data.detail === "크루 참여가 있는 여행은 삭제할 수 없습니다.") {
-            alert("크루 참여가 있는 여행은 삭제할 수 없습니다.");
+            //alert("크루 참여가 있는 여행은 삭제할 수 없습니다.");
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "error",
+              title: "크루 참여가 있는 여행은 삭제할 수 없습니다."
+            });
           } else {
-            alert("요청에 문제가 있습니다.");
+            //alert("요청에 문제가 있습니다.");
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "error",
+              title: "요청에 문제가 있습니다."
+            });
           }
         } else {
-          alert("트립 삭제를 할 수 없습니다.");
+          //alert("트립 삭제를 할 수 없습니다.");
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "error",
+            title: "트립 삭제를 할 수 없습니다."
+          });
         }
       } else {
-        alert("서버와의 통신에 문제가 발생했습니다.");
+        //alert("서버와의 통신에 문제가 발생했습니다.");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "error",
+          title: "서버와의 통신에 문제가 발생했습니다."
+        });
+        
       }
       console.error('Error deleting trip:', error);
     }
@@ -101,8 +193,12 @@ const MyTrip = () => {
 
   const handleCreateNewTrip = () => {
     const userPersonality = user.personality;
-    if (userPersonality == null) {
-      alert("여행을 시작하시기 전에 성향을 먼저 만들어볼까요?");
+    if (userPersonality === "none") {
+      //alert("여행을 시작하시기 전에 성향을 먼저 만들어볼까요?");
+      Swal.fire({
+        icon: 'error',
+        html: '아직 여행 성향을 만들지 않으셨네요!<br>여행을 시작하시기 전에 성향을 먼저 만들어볼까요? 😎',
+      })
       navigate('/user')
     }else{
       setIsCreatingNewTrip(true);

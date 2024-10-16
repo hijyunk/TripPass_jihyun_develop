@@ -9,6 +9,7 @@ import { MdOutlineNotificationsNone } from "react-icons/md";
 import { FaTimes} from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { API_URL } from '../config';
+import Swal from "sweetalert2";
 
 const Header = () => {
   const { isAuthenticated, user } = useSelector(state => state.user);
@@ -55,7 +56,7 @@ const Header = () => {
               (request.userId === user.userId && (request.status === 1 || request.status === 2))
             )
           );
-          console.log("Notifications: ", newNotifications);  // 로그
+          // console.log("Notifications: ", newNotifications);  // 로그
           setNotifications(newNotifications);
         }
       } catch (error) {
@@ -69,10 +70,28 @@ const Header = () => {
 
   }, [isAuthenticated, user, location]);
 
-  const handleLogout = () => {
-    alert("로그아웃 되었습니다");
-    dispatch(logout());
-    window.location.reload();
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${API_URL}/clearMemory`);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "info",
+        title: "로그아웃 되었습니다."
+      });
+      dispatch(logout());
+    } catch (error) {
+      console.error('Error clearing memory:', error);
+    }
   };
 
   const handleNotificationClick = () => {

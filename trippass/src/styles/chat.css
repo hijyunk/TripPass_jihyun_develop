@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-height: 90vh; 
+    max-height: 100vh; 
+    overflow: hidden;
   }
   
   .chatMessages {
@@ -13,7 +14,7 @@
   
   .chatMessage {
     display: flex;
-    align-items: center;
+    flex-direction: row;
     margin-bottom: 10px;
   }
   
@@ -25,6 +26,17 @@
   .otherMessage {
     justify-content: flex-start;
   }
+
+  .serpChatMessageContainer{
+    display: flex;
+    margin-bottom: 10px;
+    flex-direction: column;
+  }
+
+  .serpChatMessage{
+    display: flex;
+    flex-direction: row;
+  }
   
   .profileImage {
     width: 40px;
@@ -35,21 +47,11 @@
 
   .messageText {
     max-width: 60%;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 10px;
     background-color: #f1f1f1;
-    line-height: 1.5rem;
+    line-height: 1.3rem;
     position: relative;
-  }
-
-  .paginationButtons {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
   }
   
   .myMessage .messageText {
@@ -61,7 +63,23 @@
     order: 2; 
   }
   
-  .otherMessage .messageText {
+  .navLinkButton {
+    order: 2; /* 프로필 이미지의 오른쪽에 배치 */
+    display: flex;
+    align-items: center;
+  }
+
+  .crewButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    color: #6970d5;;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .otherMessage .messageText,
+  .otherMessage .navLinkButton {
     order: 2; 
   }
   
@@ -70,13 +88,13 @@
   }
 
   .buttonRow {
-    padding: 3px 10px;
+    padding: 3px 20px;
   }
 
   .chatButton {
     flex: 1;
     margin: 0 5px;
-    padding: 10px;
+    padding: 10px 20px;
     border: none;
     border-radius: 20px;
     background-color: #6970D5;
@@ -92,15 +110,21 @@
   
   .messageInputContainer {
     display: flex;
-    padding: 10px;
+    padding: 10px 20px;
+  
+  }
+
+  .messageInputContainer > form{
+    display: flex;
+    width: 100%;
   }
   
   .messageInput {
-    flex: 1;
-    padding: 10px;
+    padding: 10px 30px;
     background-color: #F5F6FA;
     border-radius: 20px;
     margin-right: 10px;
+    flex: 9.5;
   }
   
   .sendMessageButton {
@@ -110,6 +134,7 @@
     background-color: #b7cee7;
     color: white;
     cursor: pointer;
+    flex: 0.5;
   }
   .sendMessageButton:hover {
     background-color: #6970D5;
@@ -146,14 +171,51 @@
   justify-content: space-between;
   margin-bottom: 12px;
   font-size: 15px;
-  align-items: center
+  align-items: center;
+  padding-left: 10px;
 }
 
 .tripPlaceName{
-  flex: 9;
+  flex: 8;
   line-height: 1.3rem;
 }
 
 .tripPlaceCalendar{
-  flex: 1;
+  flex: 2;
+  text-align: center;
+}
+
+.dailyPlanList li{
+  margin-bottom: 10%;
+}
+
+.dailyPlanContentTitle{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6%;
+}
+
+.dailyPlanDate{
+  background-color: #b7cee7;
+}
+
+.trip_place_hoverPopup {
+  position: absolute; /* 오버레이로 다른 요소 위에 표시 */
+  background-color: rgba(255, 255, 255, 0.8); /* 오패시티가 40%인 흰색 */
+  border-radius: 10px;
+  padding: 20px; /* 내부 여백 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+  font-size: 15px; /* 작은 폰트 크기 */
+  z-index: 100; /* 다른 요소들 위에 표시되도록 z-index 설정 */
+  width: 380px; /* 너비 설정 */
+  right:40px;
+  top:40px;
+  line-height: 1.3rem;
+  color: #808080;
+}
+
+.dailyPlanListContent{
+  margin-bottom: 20px;
+  border-bottom: px solid #ddd;
+  padding-bottom: 10px;
 }

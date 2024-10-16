@@ -5,7 +5,7 @@ import { API_URL } from '../../config';
 import NewTripCrewPop from './NewTripCrewPop';
 import { LuMapPin } from "react-icons/lu";
 import { RiTeamLine } from "react-icons/ri";
-
+import Swal from "sweetalert2";
 const groupedPreferences = {
   money: [
     { id: 'money1', label: '넉넉한 게 최고!' },
@@ -151,11 +151,41 @@ const SearchCrew = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log('신청하기 결과:', response.data);
-      alert('크루 가입 신청이 완료되었습니다');
+      //console.log('신청하기 결과:', response.data);
+      //alert('크루 가입 신청이 완료되었습니다');
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "크루 가입 신청이 완료되었습니다!"
+      });
     } catch (error) {
-      alert('크루 가입 신청에 실패하였습니다.');
-      console.error('신청하기 실패:', error.message);
+      //alert('크루 가입 신청에 실패하였습니다.');
+      //console.error('신청하기 실패:', error.message);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "크루 가입 신청에 실패하였습니다."
+      });
     }
   };
 
@@ -224,16 +254,19 @@ const SearchCrew = () => {
                               })}
                             </div>
                             <div className="personalityDetails">
-                              <div className='personalityTitle'>성향보기</div>
+                              <div className='personalityTitle'>성향 보기</div>
                               <ul className='personalityList'>
-                                {Object.entries(JSON.parse(userData.personality)).map(([key, value]) => (
-                                  <li key={key}>
-                                    {keyTranslations[key]}: {
-                                      groupedPreferences[key] ?
-                                      groupedPreferences[key].find(preference => preference.id === value).label : value
-                                    }
-                                  </li>
-                                ))}
+                                {Object.entries(JSON.parse(userData.personality)).map(([key, value]) => {
+                                  const isMatching = JSON.parse(user.personality)[key] === value;
+                                  return (
+                                    <li key={key} style={{ fontWeight: isMatching ? 'bold' : 'normal' }}>
+                                      {keyTranslations[key]}: {
+                                        groupedPreferences[key] ?
+                                        groupedPreferences[key].find(preference => preference.id === value).label : value
+                                      }
+                                    </li>
+                                  );
+                                })}
                               </ul>
                             </div>
                           </li>

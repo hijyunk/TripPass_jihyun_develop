@@ -5,6 +5,7 @@ import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 import { TiDelete } from 'react-icons/ti';
 import { API_URL } from '../../config';
 import '../../styles/mycrewlist.css';
+import Swal from "sweetalert2";
 
 const MyCrewList = () => {
   const { user } = useSelector(state => state.user);
@@ -47,8 +48,28 @@ const MyCrewList = () => {
 
       if (response.data['result code'] === 200) {
         fetchMyCrew(); // 데이터를 다시 가져옵니다.
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "크루가 삭제되었습니다!"
+        });
       } else if (response.data['result code'] === 402) {
-        alert("메이트가 있는 여행은 삭제할 수 없습니다.");
+        //alert("메이트가 있는 여행은 삭제할 수 없습니다.");
+        Swal.fire({
+          icon: 'error',
+          title: '크루를 먼저 확인해주세요!',
+          text: '메이트가 있는 여행은 삭제할 수 없습니다.',
+        })
       } else {
         console.error('Failed to delete trip:', response.data);
       }
@@ -56,23 +77,70 @@ const MyCrewList = () => {
       if (error.response) {
         if (error.response.status === 400) {
           if (error.response.data['result code'] === 402) {
-            alert("메이트가 있는 여행은 삭제할 수 없습니다.");
+            Swal.fire({
+              icon: 'error',
+              title: '크루를 먼저 확인해주세요!',
+              text: '메이트가 있는 여행은 삭제할 수 없습니다.',
+            })
           }
         } else {
-          alert("트립 삭제를 할 수 없습니다.");
+          //alert("트립 삭제를 할 수 없습니다.");
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "error",
+            title: "트립 삭제를 할 수 없습니다."
+          });
         }
       } else {
-        alert("서버와의 통신에 문제가 발생했습니다.");
+        //alert("서버와의 통신에 문제가 발생했습니다.");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "error",
+          title: "서버와의 통신에 문제가 발생했습니다."
+        });
       }
       console.error('Error deleting trip:', error);
     }
   };
 
   const confirmAndDelete = (crewId) => {
-    const confirmed = window.confirm("이 크루를 정말 삭제하시겠습니까?");
-    if (confirmed) {
-      handleCrewDelete(crewId);
-    }
+    // const confirmed = window.confirm("이 크루를 정말 삭제하시겠습니까?");
+    // if (confirmed) {
+    //   handleCrewDelete(crewId);
+    // }
+    Swal.fire({
+      title: "해당 크루를 삭제하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleCrewDelete(crewId);
+      }
+    });
   };
 
   return (

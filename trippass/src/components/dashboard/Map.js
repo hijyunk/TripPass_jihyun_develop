@@ -11,16 +11,9 @@ import { API_URL } from '../../config';
 const defaultMarker = { id: 1, position: [37.5759, 126.9768], popupText: "여행을 떠나볼까요?" };
 
 const colors = [
-  '#4177A6', // Blue
-  '#D9D0C1', // Beige
-  '#FBAFC5', // Pink
-  '#DFACF6', // Lavender
-  '#BBD6FD', // Light Blue
-  '#BDD9F5',  // Pale Blue
-  '#BFADBF', // Light Grey
-  '#F2EEAD', // Pale Yellow
-  '#FDD5DA', // Light Pink
+  '#4177A6', '#D9D0C1', '#FBAFC5', '#DFACF6', '#BBD6FD', '#BDD9F5', '#BFADBF', '#F2EEAD', '#FDD5DA'
 ];
+
 const CustomMarker = ({ position, popupText, color }) => {
   const icon = L.divIcon({
     html: renderToString(
@@ -50,53 +43,56 @@ const Map = () => {
 
   useEffect(() => {
     const fetchTripPlans = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/getTripPlans?tripId=${user.mainTrip}`);
-    if (response.data['result code'] === 200) {
-      const plans = response.data.response;
+      try {
+        const response = await axios.get(`${API_URL}/getTripPlans?tripId=${user.mainTrip}`);
+        if (response.data['result code'] === 200) {
+          const plans = response.data.response;
 
-      // 날짜별로 소팅
-      plans.sort((a, b) => new Date(a.date) - new Date(b.date));
+          // 날짜별로 소팅
+          plans.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-      const dateToColor = {};
-      let colorIndex = 0;
+          const dateToColor = {};
+          let colorIndex = 0;
 
-      // 날짜별로 색상 지정
-      const markersData = plans.map(plan => {
-        if (!dateToColor[plan.date]) {
-          dateToColor[plan.date] = colors[colorIndex % colors.length];
-          colorIndex++;
+          // 날짜별로 색상 지정
+          const markersData = plans.map(plan => {
+            if (!dateToColor[plan.date]) {
+              dateToColor[plan.date] = colors[colorIndex % colors.length];
+              colorIndex++;
+            }
+
+            return {
+              id: plan.planId,
+              position: [plan.latitude, plan.longitude],
+              title: plan.title,
+              place: plan.place,
+              popupText: `${plan.title} - ${plan.place}`,
+              date: plan.date,
+              color: dateToColor[plan.date]
+            };
+          });
+
+          // 마커의 평균 좌표 계산
+          if (markersData.length > 0) {
+            const averageLat = markersData.reduce((sum, marker) => sum + marker.position[0], 0) / markersData.length;
+            const averageLng = markersData.reduce((sum, marker) => sum + marker.position[1], 0) / markersData.length;
+            setCenter([averageLat, averageLng]);
+            setMarkers(markersData);
+          } else {
+            setMarkers([defaultMarker]);
+            setCenter(defaultMarker.position);
+          }
+        } else {
+          console.error('Failed to fetch trip plans:', response.data);
+          setMarkers([defaultMarker]);
+          setCenter(defaultMarker.position);
         }
-
-        return {
-          id: plan.planId,
-          position: [plan.latitude, plan.longitude],
-          title: plan.title,
-          place: plan.place,
-          popupText: `${plan.title} - ${plan.place}`,
-          date: plan.date,
-          color: dateToColor[plan.date] // 날짜별 색상 할당
-        };
-      });
-
-      if (markersData.length > 0) {
-        setCenter(markersData[0].position); // 첫 번째 마커의 위치로 중심 설정
-        setMarkers(markersData);
-      } else {
+      } catch (error) {
+        console.error('Error fetching trip plans:', error);
         setMarkers([defaultMarker]);
         setCenter(defaultMarker.position);
       }
-    } else {
-      console.error('Failed to fetch trip plans:', response.data);
-      setMarkers([defaultMarker]);
-      setCenter(defaultMarker.position);
-    }
-  } catch (error) {
-    console.error('Error fetching trip plans:', error);
-    setMarkers([defaultMarker]);
-    setCenter(defaultMarker.position);
-  }
-};
+    };
 
     if (user.mainTrip) {
       fetchTripPlans();
@@ -111,7 +107,7 @@ const Map = () => {
   }
 
   return (
-    <MapContainer center={center} zoom={13} style={{ height: "400px", width: "100%" }}>
+    <MapContainer center={center} zoom={12} style={{ height: "400px", width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import '../../styles/signup.css';
 import { loginSuccess, loginFailure } from '../../store/userSlice';
-import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { API_URL, KAKAO_CLIENT_ID, KAKAO_REDIRECT_URI } from "../../config";
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 
 const Login = () => {
@@ -35,7 +35,21 @@ const Login = () => {
 
       dispatch(loginSuccess(response.data));
       localStorage.setItem('user', JSON.stringify(response.data));
-
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "로그인 되었습니다."
+      });
       navigate('/myTrip');
 
     } catch (error) {
@@ -45,10 +59,20 @@ const Login = () => {
         : '로그인에 실패했습니다. 다시 시도해주세요.';
         
       dispatch(loginFailure(errorMessage));
-
-      // 로그인 실패 알림
-      toast.error(errorMessage, {
-        position: "top-center"
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "로그인에 실패했습니다. 다시 시도해주세요."
       });
     }
   };
@@ -63,7 +87,6 @@ const Login = () => {
 
   return (
     <>
-      <ToastContainer /> 
       <form className="login-form" onSubmit={onSubmit}>
         <div className="formTitle">로그인</div>
         <div className="formbox">
@@ -72,6 +95,7 @@ const Login = () => {
             type="text"
             value={id}
             onChange={(e) => setId(e.target.value)}
+            className='loginId'
             required
           />
         </div>

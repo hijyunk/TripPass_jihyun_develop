@@ -4,24 +4,23 @@ import axios from 'axios';
 import '../../styles/signup.css';
 import userImage from '../../assets/user.png'; 
 import { API_URL } from "../../config";
+import Swal from "sweetalert2";
 
 const Signup = () => {
   const [id, setId] = useState('');
+  const [isId, setIsId] = useState(null); 
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [sex, setSex] = useState('');
   const [birthDate, setBirthDate] = useState(null);
   const [agreement, setAgreement] = useState(false);
-
   const [idMessage, setIdMessage] = useState('');
   const [nicknameMessage, setNicknameMessage] = useState('');
   const [passwordMessage, setPasswordMessage] = useState('');
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('');
   const [birthDateMessage, setBirthDateMessage] = useState('');
   const [agreementMessage, setAgreementMessage] = useState('');
-
-  const [isId, setIsId] = useState(false);
   const [isNickname, setIsNickname] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
@@ -59,12 +58,42 @@ const Signup = () => {
       });
 
       if (response.status === 200) {
-        alert('가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "가입이 완료되었습니다!"
+        });
+        //alert('가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
         navigate('/login');
       }
     } catch (err) {
       console.error('Failed to register user:', err);
-      alert('잘못된 양식입니다. 다시 입력해주세요');
+      //alert('잘못된 양식입니다. 다시 입력해주세요');
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "잘못된 양식입니다. 다시 입력해주세요"
+      });
     }
   };
 
@@ -140,6 +169,48 @@ const Signup = () => {
       setIsAgreement(true);
     }
   };
+  const checkIdDuplicate = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/getUserId`, {
+        params: { id: id }
+      });
+      if (response.data.is_duplicate === true) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "error",
+          title: "중복된 아이디 입니다."
+        });
+      } else if (response.data.is_duplicate === false) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "사용 가능한 아이디 입니다."
+        });
+      }
+    } catch (error) {
+      console.error('중복 확인 중 오류 발생:', error);
+    }
+  };
 
   return (
     <>
@@ -147,7 +218,8 @@ const Signup = () => {
         <div className="formTitle">회원가입</div>
         <div className="formbox">
           <label>아이디</label>
-          <input type="text" value={id} onChange={onChangeId} required placeholder='아이디 입력(2~8글자)'/>
+          <input type="text" value={id} onChange={onChangeId} required placeholder='아이디 입력(2~8글자)' className='idCheck'/>
+          <button type="button" className="idCheckBtn" onClick={checkIdDuplicate}>중복 확인</button>
           {id.length > 0 && (
             <span className={`message ${isId ? 'success' : 'error'}`}>{idMessage}</span>
           )}
@@ -173,7 +245,8 @@ const Signup = () => {
 
         <div className="formbox">
           <label>닉네임</label>
-          <input type="text" value={nickname} onChange={onChangeNickname} required placeholder='닉네임을 입력해주세요'/>
+          <input type="text" value={nickname} onChange={onChangeNickname} required placeholder='닉네임을 입력해주세요' 
+          className='nicknameInput'/>
           {nickname.length > 0 && (
             <span className={`message ${isNickname ? 'success' : 'error'}`}>{nicknameMessage}</span>
           )}
@@ -183,8 +256,8 @@ const Signup = () => {
           <label>성별</label>
           <select value={sex} onChange={onChangeSex} required>
             <option value="">성별을 선택하세요</option>
-            <option value="male">남성</option>
-            <option value="female">여성</option>
+            <option value="남성">남성</option>
+            <option value="여성">여성</option>
           </select>
 
         </div>

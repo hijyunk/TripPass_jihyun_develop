@@ -8,6 +8,10 @@ import axios from 'axios';
 import { API_URL } from '../../config';
 import { FaMapMarkerAlt } from "react-icons/fa"; // 아이콘 임포트
 import { RiTeamLine } from 'react-icons/ri'; // RiTeamLine 아이콘 임포트
+import { IoArrowForwardCircleSharp } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom'; // useNavigate 임포트
+import Swal from "sweetalert2";
+
 
 const colors = [
   '#4177A6', // Blue
@@ -103,6 +107,16 @@ const ScheduleItem = styled.div`
   margin-bottom: 10px; /* 일정 항목 간의 여백 추가 */
 `;
 
+const NoPlansMessage = styled.div`
+  margin-top: 20px;
+  padding-top : 40px;
+  font-size: 1.2em;
+  color: #888;
+  text-align: center;
+  line-height: 1.5em;
+  letter-spacing: -0.5px;
+`;
+
 const DashboardCalendar = () => {
   const { user } = useSelector(state => state.user);
   const [date, setDate] = useState(new Date());
@@ -110,6 +124,7 @@ const DashboardCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [tripPlans, setTripPlans] = useState([]);
   const scheduleRefs = useRef({});
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
     const fetchTripData = async () => {
@@ -199,6 +214,20 @@ const DashboardCalendar = () => {
     return acc;
   }, {});
 
+  const handleClickChat = () => {
+    if(user.mainTrip){
+      navigate('/chat');
+    }else if(user.mainTrip === null){
+      //alert("아직 여행 계획이 없어요! 계획을 먼저 만들어볼까요?");
+      Swal.fire({
+        icon: 'error',
+        title: '아직 여행 계획이 없어요!',
+        text: '계획을 먼저 만들어볼까요? 😎',
+      })
+      navigate('/mytrip');
+    }
+  };
+
   return (
     <CalendarWrapper>
       <StyledCalendar
@@ -215,27 +244,37 @@ const DashboardCalendar = () => {
         tileClassName={tileClassName}
       />
       <ScheduleContainer>
-        <div className="schedule">
-          <ul>
-            {Object.keys(groupedPlans).map((date, index) => (
-              <li key={date} ref={el => scheduleRefs.current[date] = el}>
-                <ScheduleTitle>
-                  <FaMapMarkerAlt style={{ color: colors[index % colors.length], marginRight: '10px' }} />
-                  {new Date(date).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })}
-                </ScheduleTitle>
-                {groupedPlans[date].map(plan => (
-                  <ScheduleItem key={plan.planId}>
-                    <div className="scheduleTitle">
-                      {plan.title} {plan.crewId && <RiTeamLine style={{ color: "#A1A1A1" }} />}
-                    </div>
-                    <div className="scheduleContent">
-                      {new Date(plan.date + 'T' + new Date(plan.time * 1000).toISOString().substr(11, 8)).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })} - {plan.place}
-                    </div>
-                  </ScheduleItem>
-                ))}
-              </li>
-            ))}
-          </ul>
+          <div className="schedule">
+          {tripPlans.length === 0 ? (
+            <NoPlansMessage>
+              아직 여행 계획이 없어요! <br /> 챗봇과 함께 여행 계획을 만들러 가볼까요?<br/><br/>
+              <IoArrowForwardCircleSharp
+                onClick={handleClickChat} 
+                style={{ cursor: 'pointer', fontSize: '2em' }} // 포인터 커서 추가
+              />
+            </NoPlansMessage>
+          ) : (
+            <ul>
+              {Object.keys(groupedPlans).map((date, index) => (
+                <li key={date} ref={el => scheduleRefs.current[date] = el}>
+                  <ScheduleTitle>
+                    <FaMapMarkerAlt style={{ color: colors[index % colors.length], marginRight: '10px' }} />
+                    {new Date(date).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })}
+                  </ScheduleTitle>
+                  {groupedPlans[date].map(plan => (
+                    <ScheduleItem key={plan.planId}>
+                      <div className="scheduleTitle">
+                        {plan.title} {plan.crewId && <RiTeamLine style={{ color: "#A1A1A1" }} />}
+                      </div>
+                      <div className="scheduleContent">
+                        {new Date(plan.date + 'T' + new Date(plan.time * 1000).toISOString().substr(11, 8)).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })} - {plan.place}
+                      </div>
+                    </ScheduleItem>
+                  ))}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </ScheduleContainer>
     </CalendarWrapper>

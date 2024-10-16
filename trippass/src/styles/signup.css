@@ -23,7 +23,8 @@ textarea{
   color: #7C838A;
 }
 
-.formbox input[type="text"],
+.nicknameInput,
+.loginId,
 .formbox input[type="password"],
 .formbox select,
 .formbox input[type="date"],
@@ -32,6 +33,24 @@ textarea{
   padding: 10px;
   font-size: 14px;
   border-radius: 4px;
+}
+
+.idCheck{
+  width: 65%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  margin-right: 4%;
+}
+.idCheckBtn{
+  width: 30%;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #525ACE;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .formbox input[type="checkbox"] {
@@ -56,8 +75,8 @@ textarea{
   font-size: 13px;
 }
 
-.signup-form button,
-.login-form button {
+.signup-form button[type="submit"],
+.login-form button[type="submit"] {
   width: 100%;
   padding: 10px 20px;
   font-size: 16px;

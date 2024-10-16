@@ -93,8 +93,27 @@
 	cursor: pointer; 
 }
 
+.userDelete{
+	display: flex;
+	justify-content: flex-end;
+}
 
-/* 성향 선택 부분 */
+.userDeleteButton{
+	margin-top: 3%;
+	background-color: #ffffff;
+	color: #bf7171;
+	font-size: 14px;
+	border: 1px solid #bf7171;
+	padding: 7px 15px;
+	border-radius: 10px;
+	cursor: pointer; 
+}
+.userDeleteButton:hover{
+	background-color: #bf7171;
+	color: #fff;
+	cursor: pointer;
+}
+
 
 /* 성향 선택 부분 */
 
@@ -170,7 +189,7 @@
   .edit-button {
 	background-color: #ffffff;
 	color: #718EBF;
-	font-size: 12px;
+	font-size: 14px;
 	border: 1.5px solid #DFEAF2;
 	padding: 7px 15px;
 	border-radius: 10px;
@@ -179,3 +198,44 @@
 	width: 15%;
 	margin: 0 auto;
   }
+
+  .edit-button:hover {
+	background-color: #718EBF;
+	border: 1.5px solid #718EBF;
+	color: #fff;
+	cursor: pointer; 
+  }
+
+.deleteBot img{
+	width: 100%;
+}
+
+.deleteBot{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.deleteBot-text{
+	display: flex;
+	justify-content: center;
+	font-size: 16px;
+	width: 100%;
+	margin-bottom: 2%;
+	text-align: center;
+	line-height: 1.7rem;
+}
+
+.deleteBot-text-list{
+	display: flex;
+	flex-direction: column;
+	line-height: 1.7rem;
+	align-items: center;
+	width: 100%;
+}
+
+.deleteBot-text-title{
+	font-size: 17px;
+	font-weight: bold;
+	margin-bottom: 2%;
+}
